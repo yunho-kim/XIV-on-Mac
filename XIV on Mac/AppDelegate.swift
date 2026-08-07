@@ -73,7 +73,8 @@ import XIVLauncher
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Do this first so that nothing loads data or otherwise touches the prefix first!
-        let migrated = PrefixMigrator.migratePrefixIfNeeded()
+        let migrated = Settings.region == .global
+            ? PrefixMigrator.migratePrefixIfNeeded() : false
         let storyboard = NSStoryboard(name: "Main", bundle: nil)
         launchWinController =
             storyboard.instantiateController(withIdentifier: "LaunchWindow")
@@ -87,7 +88,8 @@ import XIVLauncher
             // The final piece of migration has to happen after wine is ready for use.
             PrefixMigrator.migrateWineRegistrySettings()
         }
-        sparkle.updater.checkForUpdatesInBackground()
+        // This independently maintained fork must not consume the upstream
+        // Sparkle feed. Updates are published only from this fork.
         Util.make(dir: Util.cache.path)
         #if DEBUG
             Log.debug("Running in debug mode")

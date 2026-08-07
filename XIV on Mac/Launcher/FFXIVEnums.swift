@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum FFXIVRegion: String, CaseIterable {
+    case global
+    case korea
+}
+
 public enum FFXIVPlatform: UInt8 {
     case windows = 0
     case mac = 1

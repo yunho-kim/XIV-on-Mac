@@ -24,7 +24,10 @@ public struct Patch: Codable {
         case length = "Length"
     }
 
-    static let dir = Util.applicationSupport.appendingPathComponent("patch")
+    static var dir: URL {
+        Util.applicationSupport.appendingPathComponent(
+            Settings.region == .korea ? "patch-korea" : "patch")
+    }
 
     var url: URL {
         URL(string: _url)!

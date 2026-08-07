@@ -1,3 +1,28 @@
+> [!IMPORTANT]
+> This is an independently maintained Korean-region fork. Do not open pull
+> requests or issues for these changes against the upstream XIV-on-Mac or
+> FFXIVQuickLauncher repositories. The upstream Sparkle update feed is disabled.
+
+## Korean-region fork
+
+Select `한국` in General Settings to use the Korean launcher flow. Korean game
+files, configuration files, downloaded patches, usernames, and passwords use
+separate locations from the global region. Authentication tokens remain inside
+the NativeAOT bridge and are never returned to Swift.
+
+For a reproducible developer setup, clone with submodules and run:
+
+```bash
+git clone --branch xom-korea --recurse-submodules https://github.com/yunho-kim/XIV-on-Mac.git
+cd XIV-on-Mac
+./scripts/bootstrap-dependencies.sh
+open "XIV on Mac.xcodeproj"
+```
+
+The bootstrap downloads a pinned .NET SDK and Wine runtime into repository-local
+directories, verifies SHA-512 checksums, and does not require Homebrew or Nix.
+Set `XOM_DEPS_DIR` to keep the .NET SDK cache elsewhere.
+
 <div align="center">
 
 <img src="xom_logo.png" alt="XIV on Mac Logo" width="400">

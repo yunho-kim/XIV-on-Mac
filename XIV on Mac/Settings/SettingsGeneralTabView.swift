@@ -30,6 +30,16 @@ struct SettingsGeneralTabView: View {
 
                     HStack {
                         Picker(
+                            selection: $viewModel.region,
+                            label: Text("Region")
+                        ) {
+                            Text("Global").tag(FFXIVRegion.global)
+                            Text("한국").tag(FFXIVRegion.korea)
+                        }
+                        .padding(.bottom)
+                        .fixedSize(horizontal: true, vertical: false)
+
+                        Picker(
                             selection: $viewModel.language,
                             label: Text("SETTINGS_LANGUAGE_PICKER")
                         ) {
@@ -44,6 +54,7 @@ struct SettingsGeneralTabView: View {
                         }
                         .padding(.bottom)
                         .fixedSize(horizontal: true, vertical: false)
+                        .disabled(viewModel.region == .korea)
 
                         Picker(
                             selection: $viewModel.platform,
@@ -57,6 +68,7 @@ struct SettingsGeneralTabView: View {
                         }
                         .padding(.bottom)
                         .fixedSize(horizontal: true, vertical: false)
+                        .disabled(viewModel.region == .korea)
 
                         Spacer()
                     }
@@ -66,6 +78,7 @@ struct SettingsGeneralTabView: View {
                             Text("SETTINGS_FREE_TRIAL")
                         }
                         .fixedSize(horizontal: true, vertical: false)
+                        .disabled(viewModel.region == .korea)
 
                         Spacer()
                     }
@@ -182,6 +195,10 @@ struct SettingsGeneralTabView_Previews: PreviewProvider {
 
 extension SettingsGeneralTabView {
     @MainActor class ViewModel: ObservableObject {
+        @Published var region: FFXIVRegion = Settings.region {
+            didSet { Settings.region = region }
+        }
+
         @Published var language: FFXIVLanguage = Settings.language {
             didSet { Settings.language = language }
         }

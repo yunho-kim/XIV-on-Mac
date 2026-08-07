@@ -1,5 +1,7 @@
 # General
 .DS_Store
+.deps/
+/work/
 .AppleDouble
 .LSOverride
 

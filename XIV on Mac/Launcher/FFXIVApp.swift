@@ -8,8 +8,9 @@
 import Foundation
 
 public struct FFXIVApp {
-    static let configURL = Settings.gameConfigPath.appendingPathComponent(
-        "FFXIV.cfg")
+    static var configURL: URL {
+        Settings.gameConfigPath.appendingPathComponent("FFXIV.cfg")
+    }
     static let seConfigURL = Util.userHome.appendingPathComponent(
         "/Documents/My Games/FINAL FANTASY XIV - A Realm Reborn/",
         isDirectory: true)
@@ -46,7 +47,12 @@ public struct FFXIVApp {
     }
 
     var installed: Bool {
-        bootFiles.allSatisfy { FileManager.default.fileExists(atPath: $0.path) }
+        if Settings.region == .korea {
+            return FileManager.default.fileExists(atPath: dx11URL.path)
+        }
+        return bootFiles.allSatisfy {
+            FileManager.default.fileExists(atPath: $0.path)
+        }
     }
 
     private static func createConfigDirectory() {

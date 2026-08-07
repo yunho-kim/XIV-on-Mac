@@ -10,6 +10,20 @@ void fakeLogin(void);
 
 const char *tryLoginToGame(const char *username, const char *password, const char *otp, bool repair);
 
+const char *koreanPrepareLogin(void);
+
+const char *koreanLogin(const char *username, const char *password, const char *captchaCode);
+
+const char *koreanSubmitOtp(const char *otp);
+
+const char *koreanGetPatches(void);
+
+const char *koreanStartGame(bool dalamudOk);
+
+void koreanResetSession(void);
+
+void freeNativeString(const char *value);
+
 unsigned char getDalamudInstallState(void);
 
 const char *startGame(const char *loginResult, bool dalamudOk);

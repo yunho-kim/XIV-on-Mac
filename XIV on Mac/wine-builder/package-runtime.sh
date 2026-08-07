@@ -1,19 +1,31 @@
 #!/bin/bash
 
+set -euo pipefail
+
+scriptDir="$(cd "$(dirname "$0")" && pwd)"
+cd "$scriptDir"
+
 nixResult="result"
 sourceDir="$nixResult/nix/store"
 targetDir="../wine"
 overridesDir="overrides"
 receipt="packaged-nix-output"
 
-if [[ ! -d $sourceDir ]]; then
+if [[ ! -d "$sourceDir" ]]; then
     echo "warning: Nix build did not succeed. No runtime to package."
-    cd "$PROJECT_DIR"/XIV\ on\ Mac/
-    [ -d "wine" ] && exit 0
-    echo "note: No prexisting wine package. Attempting archive download..."
-    curl -LO https://github.com/marzent/winecx/releases/download/ff-wine-9.12.1/wine.tar.xz
-    tar -xf wine.tar.xz
-    rm wine.tar.xz
+    [ -d "$targetDir" ] && exit 0
+    echo "note: No preexisting wine package. Attempting verified archive download..."
+    archivePath="$(mktemp "${TMPDIR:-/tmp}/xom-wine.XXXXXX.tar.gz")"
+    trap 'rm -f -- "$archivePath"' EXIT
+    archiveURL="https://github.com/marzent/winecx/releases/download/ff-wine-9.12.1/wine.tar.gz"
+    archiveSHA512="41835ab42b526bd1fd6f4670fa9df4267213b83550b9438f17970558ee44a37e54dbab7cc1cf25ccf0fe54fea431d9044b7e557a9aab21206ad6bfea6fa910a0"
+    curl --fail --location --retry 3 --output "$archivePath" "$archiveURL"
+    actualSHA512="$(shasum -a 512 "$archivePath" | awk '{print $1}')"
+    if [[ "$actualSHA512" != "$archiveSHA512" ]]; then
+        echo "error: Wine runtime checksum verification failed."
+        exit 2
+    fi
+    tar -xzf "$archivePath" -C "$(dirname "$targetDir")"
     exit 0
 fi
 
@@ -22,7 +34,7 @@ if [[ ! -L "$nixResult" ]]; then
   exit 1
 fi
 
-nixResultTarget=$(readlink "$nixResult")
+nixResultTarget="$(readlink "$nixResult")"
 
 if [[ -e "$receipt" && -d "$targetDir" ]]; then
   current_content=$(<"$receipt")
@@ -36,13 +48,17 @@ echo "$nixResultTarget" > "$receipt"
 echo "note: Updated receipt $receipt with Nix store result: $nixResultTarget"
 echo "note: Packaging wine..."
 
-subDir=$(find $sourceDir -type d -mindepth 1 -maxdepth 1 | head -n 1)
+subDir="$(find "$sourceDir" -type d -mindepth 1 -maxdepth 1 -print -quit)"
+if [[ -z "$subDir" ]]; then
+    echo "error: Nix build output did not contain a Wine runtime."
+    exit 1
+fi
 
-rm -rf $targetDir
-mkdir -p $targetDir
-cp -R "$subDir/"* $targetDir
-chmod -R u+w $targetDir
-rsync -a "$overridesDir/lib" $targetDir
+rm -rf -- "$targetDir"
+mkdir -p "$targetDir"
+cp -R "$subDir/." "$targetDir/"
+chmod -R u+w "$targetDir"
+rsync -a "$overridesDir/lib" "$targetDir"
 
 libDir="$targetDir/lib"
 mkdir -p "$libDir"
@@ -159,7 +175,7 @@ process_binary() {
     install_name_tool -add_rpath "@loader_path/../.." "$binaryPath"
 }
 
-find "$targetDir" -type f | while read file; do
+find "$targetDir" -type f -print0 | while IFS= read -r -d '' file; do
     if [[ -d "$file" ]]; then
         continue
     fi
@@ -167,4 +183,3 @@ find "$targetDir" -type f | while read file; do
         process_binary "$file"
     fi
 done
-

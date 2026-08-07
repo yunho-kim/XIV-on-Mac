@@ -92,6 +92,7 @@
 		50E980DE2840A65000050151 /* RepairController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E980DD2840A65000050151 /* RepairController.swift */; };
 		50ED0DB52773CA8C002E9854 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50ED0DB42773CA8C002E9854 /* Networking.swift */; };
 		50F6CBAA27A975A000013301 /* Wine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F6CBA927A975A000013301 /* Wine.swift */; };
+		A10000020000000000000001 /* KoreanLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000010000000000000001 /* KoreanLauncher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -174,6 +175,7 @@
 		5049B9AC283BA82800463A2B /* Serilog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Serilog.h; sourceTree = "<group>"; };
 		5049B9AD283BAFE600463A2B /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		5049B9AF283BF89400463A2B /* LoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResult.swift; sourceTree = "<group>"; };
+		A10000010000000000000001 /* KoreanLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoreanLauncher.swift; sourceTree = "<group>"; };
 		5049B9B1283CA89F00463A2B /* CompatibilityTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompatibilityTools.h; sourceTree = "<group>"; };
 		5049B9B2283CFEC600463A2B /* libsteam_api64.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsteam_api64.dylib; path = "XIV on Mac/XIVLauncher.NativeAOT/libsteam_api64.dylib"; sourceTree = "<group>"; };
 		504DF38B28C2BEA000535ED4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				5077A32B27C12A9100D4F1B8 /* Settings.swift */,
 				507607A027B149F600DDF3E6 /* Frontier.swift */,
 				5049B9AF283BF89400463A2B /* LoginResult.swift */,
+				A10000010000000000000001 /* KoreanLauncher.swift */,
 				501AF2F0299641A700754CC6 /* Dalamud.swift */,
 			);
 			path = Launcher;
@@ -656,7 +659,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "#!/bin/zsh\n\nDOTNET_PATH=\"/usr/local/share/dotnet/dotnet\"\n# Xcode sets TARGETNAME, however dotnet also uses that env var to determine the target dll name...\n# Unset it here to avoid name conflicts in the build.\nunset TARGETNAME\n\nif ! command -v $DOTNET_PATH &>/dev/null; then\n    echo \"error: .NET SDK is not installed.\"\n    exit 1\nfi\n\npushd \"$PROJECT_DIR\"/XIV\\ on\\ Mac/XIVLauncher.NativeAOT\npushd source/src/XIVLauncher.NativeAOT\nif [ \"${CONFIGURATION}\" = \"Release\" ] ; then\n    $DOTNET_PATH publish -r osx-arm64 -c release || {\n        echo \"error: .NET build failed.\"\n        exit 2\n    }\n    popd\n    cp source/src/XIVLauncher.NativeAOT/bin/release/net8.0/osx-arm64/publish/XIVLauncher.NativeAOT.dylib . || {\n        echo \"error: Failed to copy XIVLauncher.NativeAOT.dylib.\"\n        exit 3\n    }\n    cp source/src/XIVLauncher.NativeAOT/bin/release/net8.0/osx-arm64/publish/libsteam_api64.dylib . || {\n        echo \"error: Failed to copy libsteam_api64.dylib.\"\n        exit 4\n    }\nelse\n    $DOTNET_PATH publish -r osx-arm64 -c debug || {\n        echo \"error: .NET build failed.\"\n        exit 2\n    }\n    popd\n    cp source/src/XIVLauncher.NativeAOT/bin/debug/net8.0/osx-arm64/publish/XIVLauncher.NativeAOT.dylib . || {\n        echo \"error: Failed to copy XIVLauncher.NativeAOT.dylib.\"\n        exit 3\n    }\n    cp source/src/XIVLauncher.NativeAOT/bin/debug/net8.0/osx-arm64/publish/libsteam_api64.dylib . || {\n        echo \"error: Failed to copy libsteam_api64.dylib.\"\n        exit 4\n    }\nfi\n\ninstall_name_tool -id @executable_path/../Frameworks/XIVLauncher.NativeAOT.dylib XIVLauncher.NativeAOT.dylib\n# Ignore wanrnings about libsteam_api64 code signature invalidations, we will resign it later\ninstall_name_tool -id @executable_path/../Frameworks/libsteam_api64.dylib libsteam_api64.dylib 2>/dev/null\npopd\n";
+			shellScript = "#!/bin/zsh\n\n\"$PROJECT_DIR/scripts/build-nativeaot.sh\" \"$CONFIGURATION\" \"${NATIVE_ARCH_ACTUAL:-$(uname -m)}\"\n";
 		};
 		5592FEB42778D3CB00FA304B /* Fix Codesign (Runtime) */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -709,6 +712,7 @@
 				50DF1F8527CCB83300DE9DA5 /* FFXIVRepo.swift in Sources */,
 				501D1C9A29A23CB500248126 /* FirstAidView.swift in Sources */,
 				5049B9B0283BF89400463A2B /* LoginResult.swift in Sources */,
+				A10000020000000000000001 /* KoreanLauncher.swift in Sources */,
 				507C600127CAA72000BA3CC2 /* PatchController.swift in Sources */,
 				07AAF894283F3D08003C10FA /* PrefixMigrator.swift in Sources */,
 				50F6CBAA27A975A000013301 /* Wine.swift in Sources */,
@@ -767,7 +771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = arm64;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -836,7 +840,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
+				ARCHS = arm64;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -897,7 +901,7 @@
 		50511ED12770E087003A1E9F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = arm64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = XOM;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
@@ -943,7 +947,7 @@
 		50511ED22770E087003A1E9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = arm64;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = XOM;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;

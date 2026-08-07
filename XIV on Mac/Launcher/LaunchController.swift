@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import XIVLauncher
 
 class LaunchController: NSViewController {
     var loginSheetWinController: NSWindowController?
@@ -58,15 +59,22 @@ class LaunchController: NSViewController {
         leftButton.wantsLayer = true
         rightButton.wantsLayer = true
         setSideButtonVisibility(to: false)
-        DispatchQueue.global(qos: .userInitiated).async {
-            self.checkBoot()
-        }
-        DispatchQueue.global(qos: .userInteractive).async {
-            if let frontierInfo = Frontier.info {
-                self.populateNews(frontierInfo)
+        if Settings.region == .korea {
+            DispatchQueue.main.async {
+                self.loginButton.isEnabled = true
+                self.touchBarLoginButton.isEnabled = true
             }
-            if let frontierBanners = Frontier.banners {
-                self.populateBanners(frontierBanners)
+        } else {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.checkBoot()
+            }
+            DispatchQueue.global(qos: .userInteractive).async {
+                if let frontierInfo = Frontier.info {
+                    self.populateNews(frontierInfo)
+                }
+                if let frontierBanners = Frontier.banners {
+                    self.populateBanners(frontierBanners)
+                }
             }
         }
     }
@@ -97,6 +105,13 @@ class LaunchController: NSViewController {
     }
 
     func checkBoot(skipInstallCheck: Bool = false) {
+        guard Settings.region == .global else {
+            DispatchQueue.main.async {
+                self.loginButton.isEnabled = true
+                self.touchBarLoginButton.isEnabled = true
+            }
+            return
+        }
         if let bootPatches = try? Patch.bootPatches, !bootPatches.isEmpty,
             FFXIVApp().installed || skipInstallCheck
         {
@@ -218,6 +233,11 @@ class LaunchController: NSViewController {
     }
 
     func doLogin(repair: Bool = false) {
+        if Settings.region == .korea {
+            doKoreanLogin()
+            return
+        }
+
         // Check for show stopping problems
         if problemConfigurationCheck() {
             return
@@ -368,6 +388,219 @@ class LaunchController: NSViewController {
                 }
             }
         }
+    }
+
+    private func doKoreanLogin() {
+        if problemConfigurationCheck() {
+            return
+        }
+
+        view.window?.beginSheet(loginSheetWinController!.window!)
+        Settings.credentials = LoginCredentials(
+            username: userField.stringValue,
+            password: passwdField.stringValue)
+
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            do {
+                postLoginStatus("Checking Korean game patches")
+                let patchPlan = try KoreanLauncher.pendingPatches()
+                if !patchPlan.pendingPatches.isEmpty {
+                    DispatchQueue.main.sync {
+                        loginSheetWinController?.window?.close()
+                    }
+                    startPatch(patchPlan.pendingPatches)
+                    let verification = try KoreanLauncher.pendingPatches()
+                    guard verification.pendingPatches.isEmpty else {
+                        throw KoreanLauncherError(
+                            code: "PatchVerificationFailed",
+                            stage: "patch",
+                            serverCode: nil,
+                            detail: "패치 설치 후에도 적용되지 않은 한국 서버 패치가 남아 있습니다.")
+                    }
+                    DispatchQueue.main.sync {
+                        view.window?.beginSheet(loginSheetWinController!.window!)
+                    }
+                }
+
+                guard FFXIVApp().installed else {
+                    throw FFXIVLoginError.noInstall
+                }
+
+                DispatchQueue.global(qos: .utility).async {
+                    DiscordBridge.setPresence()
+                    GraphicsInstaller.ensureBackend()
+                }
+
+                postLoginStatus("Preparing Korean login")
+                let captchaPayload = try KoreanLauncher.prepareLogin()
+                let captchaCode = try promptKoreanCode(
+                    title: "보안문자 입력",
+                    message: "이미지에 표시된 문자를 입력하세요.",
+                    placeholder: "보안문자",
+                    imageBase64: captchaPayload.captchaImageBase64,
+                    secure: false)
+
+                postLoginStatus("Logging in")
+                let loginPayload = try KoreanLauncher.login(
+                    username: Settings.credentials!.username,
+                    password: Settings.credentials!.password,
+                    captchaCode: captchaCode)
+
+                if loginPayload.otpRequired {
+                    let otp = try promptKoreanCode(
+                        title: "OTP 입력",
+                        message: "7자리 일회용 비밀번호를 입력하세요.",
+                        placeholder: "OTP",
+                        imageBase64: nil,
+                        secure: true)
+                    postLoginStatus("Verifying OTP")
+                    try KoreanLauncher.submitOtp(otp)
+                }
+
+                postLoginStatus("Updating Dalamud")
+                let dalamudInstallState = Dalamud.InstallState(
+                    rawValue: getDalamudInstallState()) ?? .failed
+                if Settings.dalamudEnabled && dalamudInstallState == .failed {
+                    DispatchQueue.main.sync {
+                        let alert = NSAlert()
+                        alert.addButton(
+                            withTitle: NSLocalizedString(
+                                "BUTTON_OK", comment: ""))
+                        alert.alertStyle = .critical
+                        alert.messageText = NSLocalizedString(
+                            "DALAMUD_START_FAILURE", comment: "")
+                        alert.informativeText = NSLocalizedString(
+                            "DALAMUD_START_FAILURE_INFORMATIONAL", comment: "")
+                        alert.runModal()
+                    }
+                }
+
+                postLoginStatus("Starting Game")
+                let process = try KoreanLauncher.startGame(
+                    dalamudOk: dalamudInstallState == .ok)
+                DispatchQueue.main.async { [self] in
+                    loginSheetWinController?.window?.close()
+                    view.window?.close()
+                }
+                AddOn.launchNotify()
+                let exitCode = process.exitCode
+                Log.information("Game exited with exit code \(exitCode)")
+                DispatchQueue.main.async {
+                    if exitCode != 0 && Settings.nonZeroExitError {
+                        let alert = NSAlert()
+                        alert.addButton(
+                            withTitle: NSLocalizedString(
+                                "BUTTON_OK", comment: ""))
+                        alert.alertStyle = .critical
+                        alert.messageText = NSLocalizedString(
+                            "GAME_START_FAILURE", comment: "")
+                        alert.informativeText = NSLocalizedString(
+                            "GAME_START_FAILURE_INFORMATIONAL", comment: "")
+                        alert.runModal()
+                    } else if Settings.exitWithGame {
+                        Util.quit()
+                    }
+                }
+            } catch is CancellationError {
+                KoreanLauncher.resetSession()
+                DispatchQueue.main.async { [self] in
+                    loginSheetWinController?.window?.close()
+                }
+            } catch {
+                KoreanLauncher.resetSession()
+                DispatchQueue.main.async { [self] in
+                    loginSheetWinController?.window?.close()
+                    let alert = NSAlert()
+                    alert.addButton(
+                        withTitle: NSLocalizedString("BUTTON_OK", comment: ""))
+                    alert.alertStyle = .critical
+                    alert.messageText = "한국 서버 실행 오류"
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+
+    private func postLoginStatus(_ status: String) {
+        NotificationCenter.default.post(
+            name: .loginInfo,
+            object: nil,
+            userInfo: [Notification.status.info: status])
+    }
+
+    private func promptKoreanCode(
+        title: String,
+        message: String,
+        placeholder: String,
+        imageBase64: String?,
+        secure: Bool
+    ) throws -> String {
+        var submittedValue: String?
+        var cancelled = false
+
+        DispatchQueue.main.sync { [self] in
+            loginSheetWinController?.window?.close()
+
+            let alert = NSAlert()
+            alert.messageText = title
+            alert.informativeText = message
+            alert.alertStyle = .informational
+            alert.addButton(withTitle: "확인")
+            alert.addButton(withTitle: "취소")
+
+            let input: NSTextField = secure ? NSSecureTextField() : NSTextField()
+            input.placeholderString = placeholder
+            input.frame = NSRect(x: 0, y: 0, width: 280, height: 24)
+
+            let stack = NSStackView()
+            stack.orientation = .vertical
+            stack.alignment = .leading
+            stack.spacing = 8
+
+            if let imageBase64,
+                let data = Data(base64Encoded: imageBase64),
+                let image = NSImage(data: data)
+            {
+                let imageView = NSImageView(image: image)
+                imageView.imageScaling = .scaleProportionallyUpOrDown
+                imageView.frame = NSRect(x: 0, y: 0, width: 280, height: 90)
+                imageView.widthAnchor.constraint(equalToConstant: 280).isActive = true
+                imageView.heightAnchor.constraint(equalToConstant: 90).isActive = true
+                stack.addArrangedSubview(imageView)
+            }
+
+            stack.addArrangedSubview(input)
+            stack.widthAnchor.constraint(equalToConstant: 280).isActive = true
+            alert.accessoryView = stack
+
+            let response = alert.runModal()
+            if response == .alertFirstButtonReturn {
+                let value = input.stringValue.trimmingCharacters(
+                    in: .whitespacesAndNewlines)
+                if !value.isEmpty {
+                    submittedValue = value
+                }
+            } else {
+                cancelled = true
+            }
+
+            if !cancelled {
+                view.window?.beginSheet(loginSheetWinController!.window!)
+            }
+        }
+
+        if cancelled {
+            throw CancellationError()
+        }
+        guard let submittedValue else {
+            throw KoreanLauncherError(
+                code: "EmptyInput",
+                stage: nil,
+                serverCode: nil,
+                detail: "값을 입력해야 합니다.")
+        }
+        return submittedValue
     }
 
     func startPatch(_ patches: [Patch]) {
