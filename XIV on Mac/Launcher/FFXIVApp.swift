@@ -17,7 +17,6 @@ public struct FFXIVApp {
     let bootRepoURL, bootExeURL, bootExe64URL, launcherExe64URL,
         updaterExe64URL: URL
     let gameRepoURL, dx9URL, dx11URL, sqpackFolderURL: URL
-    private let bootFiles: [URL]
 
     init() {
         bootRepoURL = Settings.gamePath.appendingPathComponent("boot")
@@ -33,9 +32,6 @@ public struct FFXIVApp {
         dx11URL = gameRepoURL.appendingPathComponent("ffxiv_dx11.exe")
         sqpackFolderURL = gameRepoURL.appendingPathComponent("sqpack")
 
-        bootFiles = [
-            bootExeURL, bootExe64URL, launcherExe64URL, updaterExe64URL,
-        ]
     }
 
     static var running: Bool {
@@ -47,12 +43,7 @@ public struct FFXIVApp {
     }
 
     var installed: Bool {
-        if Settings.region == .korea {
-            return FileManager.default.fileExists(atPath: dx11URL.path)
-        }
-        return bootFiles.allSatisfy {
-            FileManager.default.fileExists(atPath: $0.path)
-        }
+        FileManager.default.fileExists(atPath: dx11URL.path)
     }
 
     private static func createConfigDirectory() {

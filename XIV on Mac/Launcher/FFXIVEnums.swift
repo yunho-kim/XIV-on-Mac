@@ -8,7 +8,6 @@
 import Foundation
 
 public enum FFXIVRegion: String, CaseIterable {
-    case global
     case korea
 }
 

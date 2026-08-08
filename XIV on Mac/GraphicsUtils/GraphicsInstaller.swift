@@ -13,6 +13,12 @@ enum GraphicsInstaller {
     private static let d3dcompilerPath = Bundle.main.url(
         forResource: "d3dcompiler", withExtension: nil, subdirectory: "")!
     private static let d3dcompilerDll = d3dcompilerPath.appendingPathComponent("d3dcompiler_47.dll")
+    private static let dxmtPath = Wine.wineDllURL.appendingPathComponent(
+        "x86_64-windows")
+    private static let dxmtD3d11Dll = dxmtPath.appendingPathComponent(
+        "d3d11.dll")
+    private static let dxmtDxgiDll = dxmtPath.appendingPathComponent(
+        "dxgi.dll")
 
     static func install(dll: URL) {
         let dllName = dll.lastPathComponent
@@ -64,5 +70,11 @@ enum GraphicsInstaller {
 
     static func ensureBackend() {
         install(dll: d3dcompilerDll)
+        // Keep existing prefixes in sync with the DXMT binaries shipped in the
+        // app. Wineboot does not replace DLLs already copied into system32, so
+        // a runtime update alone would leave the stock Wine D3D implementation
+        // behind and the Korean client would fail during DirectX initialization.
+        install(dll: dxmtD3d11Dll)
+        install(dll: dxmtDxgiDll)
     }
 }

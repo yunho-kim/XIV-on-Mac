@@ -15,11 +15,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="XIV on Mac" id="1Xt-HY-uBw">
+                            <menuItem title="XIV on Mac KR" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="XIV on Mac" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="XIV on Mac KR" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About XIV on Mac" id="5kV-Vb-QxS">
+                                        <menuItem title="About XIV on Mac KR" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -43,7 +43,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide XIV on Mac" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide XIV on Mac KR" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -61,7 +61,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit XIV on Mac" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit XIV on Mac KR" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -402,7 +402,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="XIV on Mac Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="XIV on Mac KR Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -809,7 +809,7 @@ Gw
                                                                         <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WRE-k0-C6w">
                                                                             <rect key="frame" x="248" y="151" width="318" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Copy existing game data to &quot;XIV on Mac&quot; prefix." id="9yd-8A-qFs">
+                                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Copy existing Korean game data to the &quot;XIV on Mac KR&quot; prefix." id="9yd-8A-qFs">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -818,7 +818,7 @@ Gw
                                                                         <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XZQ-Qo-Clb">
                                                                             <rect key="frame" x="248" y="103" width="294" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Point XIV on Mac towards a custom folder." id="0iQ-Qw-vtu">
+                                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="left" title="Point XIV on Mac KR towards a custom folder." id="0iQ-Qw-vtu">
                                                                                 <font key="font" metaFont="system"/>
                                                                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -829,7 +829,7 @@ Gw
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                             <textFieldCell key="cell" id="uJx-kU-CQH">
                                                                                 <font key="font" metaFont="system"/>
-                                                                                <string key="title">When selecting a custom folder, please select one your game is installed in. It should contain the folders "game" and "boot". Otherwise XIV on Mac will redownload your game.</string>
+                                                                                <string key="title">When selecting a custom folder, choose the Korean game installation folder containing the "game" directory. Otherwise XIV on Mac KR will redownload the game.</string>
                                                                                 <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                             </textFieldCell>
@@ -962,7 +962,7 @@ Gw
         <scene sceneID="ImY-2l-0oe">
             <objects>
                 <windowController storyboardIdentifier="LaunchWindow" id="SmX-cH-8Kr" customClass="LaunchWindowController" customModule="XIV_on_Mac" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="XIV on Mac" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="msO-z3-Trw">
+                    <window key="window" title="XIV on Mac KR" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="msO-z3-Trw">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="425" y="462" width="163" height="137"/>
@@ -1010,7 +1010,7 @@ Gw
                                     <secureTextField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" contentType="password" translatesAutoresizingMaskIntoConstraints="NO" id="Bhg-a8-aUl">
                                         <rect key="frame" x="682" y="298" width="264" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <secureTextFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="required" drawsBackground="YES" usesSingleLineMode="YES" id="TfY-Li-gp6">
+                                        <secureTextFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="필수" drawsBackground="YES" usesSingleLineMode="YES" id="TfY-Li-gp6">
                                             <font key="font" metaFont="system" size="16"/>
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1022,7 +1022,7 @@ Gw
                                             <action selector="doLogin:" target="sya-zo-KBW" id="QrA-k5-7Zd"/>
                                         </connections>
                                     </secureTextField>
-                                    <textField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjj-4f-wNd">
+                                    <textField hidden="YES" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjj-4f-wNd">
                                         <rect key="frame" x="681" y="240" width="190" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="optional" drawsBackground="YES" id="5FC-rM-Oay">
@@ -1034,7 +1034,7 @@ Gw
                                             <action selector="doLogin:" target="sya-zo-KBW" id="G0X-GO-dEw"/>
                                         </connections>
                                     </textField>
-                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhv-Eb-PmW">
+                                    <button hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fhv-Eb-PmW">
                                         <rect key="frame" x="679" y="203" width="139" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Auto-Login" bezelStyle="regularSquare" imagePosition="left" controlSize="large" inset="2" id="J8n-OX-VtC">
@@ -1045,7 +1045,7 @@ Gw
                                             <action selector="autoLoginStateChange:" target="sya-zo-KBW" id="vSI-5L-6cB"/>
                                         </connections>
                                     </button>
-                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhX-md-4MR">
+                                    <button hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhX-md-4MR">
                                         <rect key="frame" x="819" y="203" width="127" height="19"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Auto-OTP" bezelStyle="regularSquare" imagePosition="left" controlSize="large" inset="2" id="hjS-RC-X85">
@@ -1059,7 +1059,7 @@ Gw
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3uG-Aq-0R3">
                                         <rect key="frame" x="680" y="386" width="154" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="Square Enix ID" id="dYN-5e-LY1">
+                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="FF14 한국 계정" id="dYN-5e-LY1">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1068,25 +1068,56 @@ Gw
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZqH-DU-gQT">
                                         <rect key="frame" x="680" y="327" width="193" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="Square Enix Password" id="P4p-qs-m93">
+                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="비밀번호" id="P4p-qs-m93">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G6g-Dt-rdC">
-                                        <rect key="frame" x="680" y="269" width="193" height="14"/>
+                                        <rect key="frame" x="680" y="269" width="266" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="One-Time Password" id="Def-J0-BrB">
+                                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" title="자동 입력 방지 (5자)" id="Def-J0-BrB">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <imageView wantsLayer="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-Ig-Mg1">
+                                        <rect key="frame" x="682" y="220" width="180" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="center" imageScaling="proportionallyUpOrDown" id="KRc-Ig-Ce1"/>
+                                    </imageView>
+                                    <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-Rf-Btn">
+                                        <rect key="frame" x="867" y="218" width="81" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="push" title="새로고침" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KRc-Rf-Cel">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="refreshKoreanCaptcha:" target="sya-zo-KBW" id="KRc-Rf-Act"/>
+                                        </connections>
+                                    </button>
+                                    <textField wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-Tx-Fld">
+                                        <rect key="frame" x="682" y="185" width="264" height="27"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="자동 입력 방지 (5자)" drawsBackground="YES" usesSingleLineMode="YES" id="KRc-Tx-Cel">
+                                            <font key="font" metaFont="system" size="16"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <allowedInputSourceLocales>
+                                                <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                            </allowedInputSourceLocales>
+                                        </textFieldCell>
+                                        <connections>
+                                            <action selector="doLogin:" target="sya-zo-KBW" id="KRc-Tx-Act"/>
+                                        </connections>
+                                    </textField>
                                     <button wantsLayer="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cgh-yM-JG5">
                                         <rect key="frame" x="673" y="140" width="282" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" controlSize="large" enabled="NO" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TON-Zk-2g1">
+                                        <buttonCell key="cell" type="push" title="한국 서버 로그인" bezelStyle="rounded" alignment="center" controlSize="large" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TON-Zk-2g1">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system" size="15"/>
                                         </buttonCell>
@@ -1218,7 +1249,7 @@ Gw
                                     <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dHG-Nt-Pvm">
                                         <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="803-uu-sDq">
+                                        <buttonCell key="cell" type="push" title="한국 서버 로그인" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="803-uu-sDq">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" usesAppearanceFont="YES"/>
                                         </buttonCell>
@@ -1272,6 +1303,10 @@ Gw
                     </touchBar>
                     <connections>
                         <outlet property="autoLoginCheck" destination="fhv-Eb-PmW" id="ZbX-wj-4b6"/>
+                        <outlet property="captchaField" destination="KRc-Tx-Fld" id="KRc-Tx-Out"/>
+                        <outlet property="captchaImageView" destination="KRc-Ig-Mg1" id="KRc-Ig-Out"/>
+                        <outlet property="captchaRefreshButton" destination="KRc-Rf-Btn" id="KRc-Rf-Out"/>
+                        <outlet property="captchaStatusLabel" destination="G6g-Dt-rdC" id="KRc-St-Out"/>
                         <outlet property="discloseButton" destination="R5T-I0-Kje" id="ALW-vS-IBY"/>
                         <outlet property="leftButton" destination="tBx-dX-l3A" id="hfY-Eb-j7x"/>
                         <outlet property="loginButton" destination="Cgh-yM-JG5" id="gcf-Am-XLt"/>

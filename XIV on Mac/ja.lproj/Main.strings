@@ -4,7 +4,7 @@
 "0ZX-g7-76H.title" = "Dalamudのプラグインサポート付きで起動したい";
 
 /* Class = "NSTextFieldCell"; title = "Point XIV on Mac towards a custom folder."; ObjectID = "0iQ-Qw-vtu"; */
-"0iQ-Qw-vtu.title" = "XIV on Macのカスタムフォルダを指定してください。";
+"0iQ-Qw-vtu.title" = "XIV on Mac KR에서 사용할 한국판 게임 폴더를 선택합니다.";
 
 /* Class = "NSMenuItem"; title = "Auto-Launch Bunny HUD"; ObjectID = "1Do-e8-DyE"; */
 "1Do-e8-DyE.title" = "Bunny HUDを自動起動";
@@ -16,7 +16,7 @@
 "1UK-8n-QPP.title" = "Wine設定";
 
 /* Class = "NSMenuItem"; title = "XIV on Mac"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "XIV on Mac";
+"1Xt-HY-uBw.title" = "XIV on Mac KR";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "検索";
@@ -40,7 +40,7 @@
 
 
 /* Class = "NSMenuItem"; title = "Quit XIV on Mac"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "XIV on Macを終了する";
+"4sb-4s-VLi.title" = "XIV on Mac KR 종료";
 
 
 /* Class = "NSTextFieldCell"; placeholderString = "optional"; ObjectID = "5FC-rM-Oay"; */
@@ -50,7 +50,7 @@
 "5QF-Oa-p0T.title" = "編集";
 
 /* Class = "NSMenuItem"; title = "About XIV on Mac"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "XIV on Macについて";
+"5kV-Vb-QxS.title" = "XIV on Mac KR 정보";
 
 
 
@@ -81,7 +81,7 @@
 
 
 /* Class = "NSTextFieldCell"; title = "Copy existing game data to \"XIV on Mac\" prefix."; ObjectID = "9yd-8A-qFs"; */
-"9yd-8A-qFs.title" = "既存のゲームパッチを「XIV on Mac」内にコピーします。";
+"9yd-8A-qFs.title" = "기존 한국판 게임 데이터를 XIV on Mac KR로 복사합니다.";
 
 /* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "9yt-4B-nSM"; */
 "9yt-4B-nSM.title" = "スマートコピー／ペースト";
@@ -121,7 +121,7 @@
 
 
 /* Class = "NSTextFieldCell"; title = "One-Time Password"; ObjectID = "Def-J0-BrB"; */
-"Def-J0-BrB.title" = "ワンタイムパスワード";
+"Def-J0-BrB.title" = "자동 입력 방지 (5자)";
 
 /* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
 "Dv1-io-Yv7.title" = "スペルと文法";
@@ -135,7 +135,7 @@
 "F2S-fz-NVQ.title" = "ヘルプ";
 
 /* Class = "NSMenuItem"; title = "XIV on Mac Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "XIV on Macのヘルプ";
+"FKE-Sm-Kum.title" = "XIV on Mac KR 도움말";
 
 /* Class = "NSTextFieldCell"; title = "Done"; ObjectID = "FS5-VI-VER"; */
 "FS5-VI-VER.title" = "完了";
@@ -233,7 +233,7 @@
 "OY7-WF-poV.title" = "しまう";
 
 /* Class = "NSMenuItem"; title = "Hide XIV on Mac"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = "XIV on Macを非表示";
+"Olw-nP-bQN.title" = "XIV on Mac KR 가리기";
 
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
 "OwM-mh-QMV.title" = "前を検索";
@@ -242,7 +242,7 @@
 "Oyz-dy-DGm.title" = "読み上げを停止";
 
 /* Class = "NSTextFieldCell"; title = "Square Enix Password"; ObjectID = "P4p-qs-m93"; */
-"P4p-qs-m93.title" = "スクウェア・エニックス パスワード";
+"P4p-qs-m93.title" = "비밀번호";
 
 
 
@@ -269,7 +269,7 @@
 
 
 /* Class = "NSButtonCell"; title = "Login"; ObjectID = "TON-Zk-2g1"; */
-"TON-Zk-2g1.title" = "ログイン";
+"TON-Zk-2g1.title" = "한국 서버 로그인";
 
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
@@ -369,7 +369,7 @@
 "dRJ-4n-Yzg.title" = "やり直す";
 
 /* Class = "NSTextFieldCell"; title = "Square Enix ID"; ObjectID = "dYN-5e-LY1"; */
-"dYN-5e-LY1.title" = "スクウェア・エニックス ID";
+"dYN-5e-LY1.title" = "FF14 한국 계정";
 
 
 
@@ -430,7 +430,7 @@
 
 
 /* Class = "NSWindow"; title = "XIV on Mac"; ObjectID = "msO-z3-Trw"; */
-"msO-z3-Trw.title" = "XIV on Mac";
+"msO-z3-Trw.title" = "XIV on Mac KR";
 
 
 /* Class = "NSMenuItem"; title = "Add On"; ObjectID = "ngK-lv-alc"; */
@@ -492,7 +492,7 @@
 "uJx-kU-CQH.title" = "カスタムフォルダを選択する際は、ゲームがインストールされているフォルダを選択してください。「game」と「boot」というフォルダがあるはずです。それらがなかった場合はゲームパッチが全てダウンロードされます。";
 
 /* Class = "NSMenu"; title = "XIV on Mac"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "XIV on Mac";
+"uQy-DD-JDr.title" = "XIV on Mac KR";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "カット";
@@ -524,7 +524,7 @@
 
 
 /* Class = "NSButtonCell"; title = "Login"; ObjectID = "803-uu-sDq"; */
-"803-uu-sDq.title" = "ログイン";
+"803-uu-sDq.title" = "한국 서버 로그인";
 
 /* Class = "NSButtonCell"; title = "Troubleshooting"; ObjectID = "d7x-jG-QDv"; */
 "d7x-jG-QDv.title" = "トラブルシューティング";
@@ -536,5 +536,3 @@
 
 /* Class = "NSButtonCell"; title = "Bunny HUD"; ObjectID = "0Nw-cb-lDZ"; */
 "0Nw-cb-lDZ.title" = "Bunny HUD";
-
-

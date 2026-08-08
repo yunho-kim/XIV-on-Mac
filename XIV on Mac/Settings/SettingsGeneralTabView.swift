@@ -16,74 +16,13 @@ struct SettingsGeneralTabView: View {
             VStack {
                 VStack {
                     HStack {
-                        Text("SETTINGS_GENERAL_TITLE_LICENSE")
+                        Text("한국 서버")
                             .font(.headline)
 
                         Spacer()
                     }
 
-                    Text("SETTINGS_GENERAL_LANGUAGE_AND_LICENSE_BLURB")
-                        .multilineTextAlignment(.leading)
-                        .lineLimit(nil)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.callout)
-
-                    HStack {
-                        Picker(
-                            selection: $viewModel.region,
-                            label: Text("Region")
-                        ) {
-                            Text("Global").tag(FFXIVRegion.global)
-                            Text("한국").tag(FFXIVRegion.korea)
-                        }
-                        .padding(.bottom)
-                        .fixedSize(horizontal: true, vertical: false)
-
-                        Picker(
-                            selection: $viewModel.language,
-                            label: Text("SETTINGS_LANGUAGE_PICKER")
-                        ) {
-                            Text("SETTINGS_LANGUAGE_JAPANESE").tag(
-                                FFXIVLanguage.japanese)
-                            Text("SETTINGS_LANGUAGE_ENGLISH").tag(
-                                FFXIVLanguage.english)
-                            Text("SETTINGS_LANGUAGE_FRENCH").tag(
-                                FFXIVLanguage.french)
-                            Text("SETTINGS_LANGUAGE_GERMAN").tag(
-                                FFXIVLanguage.german)
-                        }
-                        .padding(.bottom)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .disabled(viewModel.region == .korea)
-
-                        Picker(
-                            selection: $viewModel.platform,
-                            label: Text("SETTINGS_PLATFORM_PICKER")
-                        ) {
-                            Text("SETTINGS_PLATFORM_MAC").tag(FFXIVPlatform.mac)
-                            Text("SETTINGS_PLATFORM_WINDOWS").tag(
-                                FFXIVPlatform.windows)
-                            Text("SETTINGS_PLATFORM_STEAM").tag(
-                                FFXIVPlatform.steam)
-                        }
-                        .padding(.bottom)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .disabled(viewModel.region == .korea)
-
-                        Spacer()
-                    }
-
-                    HStack {
-                        Toggle(isOn: $viewModel.freeTrial) {
-                            Text("SETTINGS_FREE_TRIAL")
-                        }
-                        .fixedSize(horizontal: true, vertical: false)
-                        .disabled(viewModel.region == .korea)
-
-                        Spacer()
-                    }
-
-                    Text("SETTINGS_GENERAL_FREE_TRIAL_BLURB")
+                    Text("이 빌드는 파이널판타지14 한국 서버 전용입니다. 언어, 플랫폼 및 계정 데이터는 한국 서버 설정으로 고정됩니다.")
                         .multilineTextAlignment(.leading)
                         .lineLimit(nil)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -195,22 +134,6 @@ struct SettingsGeneralTabView_Previews: PreviewProvider {
 
 extension SettingsGeneralTabView {
     @MainActor class ViewModel: ObservableObject {
-        @Published var region: FFXIVRegion = Settings.region {
-            didSet { Settings.region = region }
-        }
-
-        @Published var language: FFXIVLanguage = Settings.language {
-            didSet { Settings.language = language }
-        }
-
-        @Published var platform: FFXIVPlatform = Settings.platform {
-            didSet { Settings.platform = platform }
-        }
-
-        @Published var freeTrial: Bool = Settings.freeTrial {
-            didSet { Settings.freeTrial = freeTrial }
-        }
-
         @Published var limitDownloadEnabled: Bool = HTTPClient.maxSpeed > 0 {
             didSet { updateHTTPMaxSpeed() }
         }

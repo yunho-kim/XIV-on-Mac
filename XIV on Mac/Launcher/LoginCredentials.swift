@@ -10,7 +10,6 @@ import KeychainAccess
 import OrderedCollections
 
 public struct LoginCredentials {
-    static let squareServer = "https://secure.square-enix.com"
     static let koreanServer = "https://newlauncher.ff14.co.kr"
     let username: String
     let password: String
@@ -40,8 +39,8 @@ public struct LoginCredentials {
         self.region = region
     }
 
-    static func server(for region: FFXIVRegion) -> String {
-        region == .korea ? koreanServer : squareServer
+    static func server(for _: FFXIVRegion) -> String {
+        koreanServer
     }
 
     static func storedLogin(

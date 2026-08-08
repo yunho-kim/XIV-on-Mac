@@ -7,7 +7,7 @@
 "0ZX-g7-76H.title" = "Starte mit Dalamud Plugin Support";
 
 /* Class = "NSTextFieldCell"; title = "Point XIV on Mac towards a custom folder."; ObjectID = "0iQ-Qw-vtu"; */
-"0iQ-Qw-vtu.title" = "Wähle XIV on Mac in einen benutzerdefinierten Ordner aus.";
+"0iQ-Qw-vtu.title" = "XIV on Mac KR에서 사용할 한국판 게임 폴더를 선택합니다.";
 
 /* Class = "NSMenuItem"; title = "Auto-Launch Bunny HUD"; ObjectID = "1Do-e8-DyE"; */
 "1Do-e8-DyE.title" = "Autostart Bunny HUD";
@@ -19,7 +19,7 @@
 "1UK-8n-QPP.title" = "Wine Konfiguration";
 
 /* Class = "NSMenuItem"; title = "XIV on Mac"; ObjectID = "1Xt-HY-uBw"; */
-"1Xt-HY-uBw.title" = "XIV on Mac";
+"1Xt-HY-uBw.title" = "XIV on Mac KR";
 
 /* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
 "1b7-l0-nxx.title" = "Suche";
@@ -43,7 +43,7 @@
 
 
 /* Class = "NSMenuItem"; title = "Quit XIV on Mac"; ObjectID = "4sb-4s-VLi"; */
-"4sb-4s-VLi.title" = "XIV on Mac Beenden";
+"4sb-4s-VLi.title" = "XIV on Mac KR 종료";
 
 
 /* Class = "NSTextFieldCell"; placeholderString = "optional"; ObjectID = "5FC-rM-Oay"; */
@@ -53,7 +53,7 @@
 "5QF-Oa-p0T.title" = "Bearbeiten";
 
 /* Class = "NSMenuItem"; title = "About XIV on Mac"; ObjectID = "5kV-Vb-QxS"; */
-"5kV-Vb-QxS.title" = "Über XIV on Mac";
+"5kV-Vb-QxS.title" = "XIV on Mac KR 정보";
 
 
 
@@ -72,7 +72,7 @@
 
 
 /* Class = "NSButtonCell"; title = "Login"; ObjectID = "803-uu-sDq"; */
-"803-uu-sDq.title" = "Einloggen";
+"803-uu-sDq.title" = "한국 서버 로그인";
 
 
 
@@ -87,7 +87,7 @@
 
 
 /* Class = "NSTextFieldCell"; title = "Copy existing game data to \"XIV on Mac\" prefix."; ObjectID = "9yd-8A-qFs"; */
-"9yd-8A-qFs.title" = "Kopiere vorhandene Spieldaten in das Präfix \"XIV on Mac\".";
+"9yd-8A-qFs.title" = "기존 한국판 게임 데이터를 XIV on Mac KR로 복사합니다.";
 
 /* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "9yt-4B-nSM"; */
 "9yt-4B-nSM.title" = "Smartes Kopieren/Einfügen";
@@ -127,7 +127,7 @@
 
 
 /* Class = "NSTextFieldCell"; title = "One-Time Password"; ObjectID = "Def-J0-BrB"; */
-"Def-J0-BrB.title" = "One-Time Password";
+"Def-J0-BrB.title" = "자동 입력 방지 (5자)";
 
 /* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
 "Dv1-io-Yv7.title" = "Rechtschreibung und Grammatik";
@@ -142,7 +142,7 @@
 "F2S-fz-NVQ.title" = "Hilfe";
 
 /* Class = "NSMenuItem"; title = "XIV on Mac Help"; ObjectID = "FKE-Sm-Kum"; */
-"FKE-Sm-Kum.title" = "XIV on Mac Hilfe";
+"FKE-Sm-Kum.title" = "XIV on Mac KR 도움말";
 
 /* Class = "NSTextFieldCell"; title = "Done"; ObjectID = "FS5-VI-VER"; */
 "FS5-VI-VER.title" = "Fertig";
@@ -241,7 +241,7 @@
 "OY7-WF-poV.title" = "Minimieren";
 
 /* Class = "NSMenuItem"; title = "Hide XIV on Mac"; ObjectID = "Olw-nP-bQN"; */
-"Olw-nP-bQN.title" = "XIV on Mac ausblenden";
+"Olw-nP-bQN.title" = "XIV on Mac KR 가리기";
 
 /* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
 "OwM-mh-QMV.title" = "Vorherige finden";
@@ -250,7 +250,7 @@
 "Oyz-dy-DGm.title" = "Aufhören zu sprechen";
 
 /* Class = "NSTextFieldCell"; title = "Square Enix Password"; ObjectID = "P4p-qs-m93"; */
-"P4p-qs-m93.title" = "Square Enix Passwort";
+"P4p-qs-m93.title" = "비밀번호";
 
 
 
@@ -280,7 +280,7 @@
 "SdX-YA-r4b.collapsedRepresentationLabel" = "Add-ons";
 
 /* Class = "NSButtonCell"; title = "Login"; ObjectID = "TON-Zk-2g1"; */
-"TON-Zk-2g1.title" = "Login";
+"TON-Zk-2g1.title" = "한국 서버 로그인";
 
 
 /* Class = "NSMenu"; title = "Window"; ObjectID = "Td7-aD-5lo"; */
@@ -382,7 +382,7 @@
 "dRJ-4n-Yzg.title" = "Rückgängig machen";
 
 /* Class = "NSTextFieldCell"; title = "Square Enix ID"; ObjectID = "dYN-5e-LY1"; */
-"dYN-5e-LY1.title" = "Square Enix ID";
+"dYN-5e-LY1.title" = "FF14 한국 계정";
 
 
 
@@ -444,7 +444,7 @@
 
 
 /* Class = "NSWindow"; title = "XIV on Mac"; ObjectID = "msO-z3-Trw"; */
-"msO-z3-Trw.title" = "XIV on Mac";
+"msO-z3-Trw.title" = "XIV on Mac KR";
 
 
 /* Class = "NSMenuItem"; title = "Add On"; ObjectID = "ngK-lv-alc"; */
@@ -504,7 +504,7 @@
 "uJx-kU-CQH.title" = "Wenn du einen benutzerdefinierten Ordner auswählst, wähle bitte den, in dem dein Spiel installiert ist. Er sollte die Ordner \"game\" und \"boot\" enthalten. Andernfalls wird XIV auf Mac dein Spiel erneut herunterladen.";
 
 /* Class = "NSMenu"; title = "XIV on Mac"; ObjectID = "uQy-DD-JDr"; */
-"uQy-DD-JDr.title" = "XIV on Mac";
+"uQy-DD-JDr.title" = "XIV on Mac KR";
 
 /* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
 "uRl-iY-unG.title" = "Ausschneiden";
@@ -533,4 +533,3 @@
 
 /* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
 "z6F-FW-3nz.title" = "Substitutionen anzeigen";
-

@@ -5,10 +5,12 @@
 
 ## Korean-region fork
 
-Select `한국` in General Settings to use the Korean launcher flow. Korean game
-files, configuration files, downloaded patches, usernames, and passwords use
-separate locations from the global region. Authentication tokens remain inside
-the NativeAOT bridge and are never returned to Swift.
+This build supports the Korean region only. Korean game files, configuration
+files, downloaded patches, usernames, and passwords use locations separate from
+the upstream global-region build. Authentication tokens remain inside the
+NativeAOT bridge and are never returned to Swift. Dalamud injection is disabled
+for Korean game launches because the current injector does not support the
+Korean client language.
 
 For a reproducible developer setup, clone with submodules and run:
 

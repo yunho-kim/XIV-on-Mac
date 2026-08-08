@@ -25,8 +25,7 @@ public struct Patch: Codable {
     }
 
     static var dir: URL {
-        Util.applicationSupport.appendingPathComponent(
-            Settings.region == .korea ? "patch-korea" : "patch")
+        Util.applicationSupport.appendingPathComponent("patch-korea")
     }
 
     var url: URL {

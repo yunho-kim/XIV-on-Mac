@@ -14,7 +14,9 @@ enum Wine {
     static let wineDllURL = Bundle.main.url(
         forResource: "lib/wine", withExtension: nil, subdirectory: "wine")!
     static let prefix = Util.applicationSupport.appendingPathComponent(
-        "wineprefix")
+        "wineprefix-korea-v1")
+
+    private static let koreanLocale = "ko_KR.UTF-8"
 
     @MainActor static func setup() {
         addEnvironmentVariable(
@@ -26,24 +28,65 @@ enum Wine {
             "DXMT_CONFIG",
             "d3d11.metalSpatialUpscaleFactor=\(Settings.metalFxSpatialFactor);d3d11.preferredMaxFrameRate=\(Settings.maxFramerate);"
         )
-        addEnvironmentVariable("DXMT_ENABLE_NVEXT", "1")
         addEnvironmentVariable(
             "DXMT_METALFX_SPATIAL_SWAPCHAIN",
             Settings.metalFxSpatialEnabled ? "1" : "0")
-        addEnvironmentVariable("LANG", "en_US")
+        // Wine derives the Windows locale and ANSI code page from the POSIX
+        // locale when a prefix is first created. The Korean client requires a
+        // Korean prefix (ACP 949); LC_ALL must be set as well because it takes
+        // precedence over LANG on macOS.
+        addEnvironmentVariable("LANG", koreanLocale)
+        addEnvironmentVariable("LC_ALL", koreanLocale)
         addEnvironmentVariable("MVK_CONFIG_LOG_LEVEL", "mvk_error")
         addEnvironmentVariable("DOTNET_EnableWriteXorExecute", "0")  // XXX Required for Apple Silicon and .NET 7+
         addEnvironmentVariable(
             "MTL_HUD_ENABLED", Settings.metal3PerformanceOverlay ? "1" : "0")
         createCompatToolsInstance(
             FileManager.default.fileSystemRepresentation(
-                withPath: wineBinURL.path), debug, false)
+                withPath: wineBinURL.path), debug,
+            FileManager.default.fileSystemRepresentation(
+                withPath: prefix.path), false)
     }
 
     static func boot() {
         DispatchQueue.global(qos: .utility).async {
             ensurePrefix()
+            configureKoreanFonts()
         }
+    }
+
+    private static func configureKoreanFonts() {
+        let bundledFont = wineBinURL.deletingLastPathComponent()
+            .appendingPathComponent(
+                "share/wine/fonts/NotoSansCJKkr-Regular.otf")
+        guard FileManager.default.fileExists(atPath: bundledFont.path) else {
+            Log.error(
+                "[KOREA] Bundled Korean font is missing: \(bundledFont.path)")
+            return
+        }
+
+        // A ko-KR Wine prefix selects Gulim for legacy dialogs, but macOS does
+        // not ship the Windows Gulim files. Map the common Korean Windows font
+        // family names to the OFL-licensed font bundled with this app so this
+        // works independently of fonts installed on the host Mac.
+        let replacementsKey =
+            "HKEY_CURRENT_USER\\Software\\Wine\\Fonts\\Replacements"
+        let bundledFamily = "Noto Sans CJK KR"
+        for family in [
+            "Gulim", "GulimChe", "Dotum", "DotumChe", "Batang",
+            "BatangChe", "Gungsuh", "GungsuhChe", "Malgun Gothic",
+            "Malgun Gothic Semilight",
+        ] {
+            addReg(key: replacementsKey, value: family, data: bundledFamily)
+        }
+
+        let substitutesKey =
+            "HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows NT\\CurrentVersion\\FontSubstitutes"
+        addReg(
+            key: substitutesKey, value: "MS Shell Dlg", data: bundledFamily)
+        addReg(
+            key: substitutesKey, value: "MS Shell Dlg 2",
+            data: bundledFamily)
     }
 
     static func launch(
@@ -103,7 +146,9 @@ enum Wine {
             UserDefaults.standard.set(newValue, forKey: wineDebugSettingKey)
             createCompatToolsInstance(
                 FileManager.default.fileSystemRepresentation(
-                    withPath: wineBinURL.path), debug, false)
+                    withPath: wineBinURL.path), debug,
+                FileManager.default.fileSystemRepresentation(
+                    withPath: prefix.path), false)
         }
     }
 

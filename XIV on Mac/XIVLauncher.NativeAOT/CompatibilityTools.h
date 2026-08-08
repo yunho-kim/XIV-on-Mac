@@ -1,6 +1,6 @@
 #include <stdbool.h>
 
-void createCompatToolsInstance(const char *winePath, const char *wineDebugVars, bool esync);
+void createCompatToolsInstance(const char *winePath, const char *wineDebugVars, const char *winePrefixPath, bool esync);
 
 void runInPrefix(const char *command, bool blocking, bool wineD3D);
 

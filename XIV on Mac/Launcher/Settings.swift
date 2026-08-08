@@ -20,32 +20,16 @@ public enum Settings {
             dalamudEnabled
             ? (dalamudEntryPoint ? .entryPoint : .dllInject) : .ACLonly
         let delayMs = dalamudEntryPoint ? 0 : Int32(injectionDelay * 1000)
-        let clientLanguage: UInt8 =
-            region == .korea ? 5 : language.rawValue
-        let clientPlatform: UInt8 =
-            region == .korea ? FFXIVPlatform.windows.rawValue : platform.rawValue
+        let clientLanguage: UInt8 = 5
+        let clientPlatform: UInt8 = FFXIVPlatform.windows.rawValue
         loadConfig(
             acceptLanguage, gamePathCString, gameConfigPathCString,
-            clientLanguage, region == .korea ? false : encryptedArguments,
-            region == .korea ? false : freeTrial, clientPlatform,
+            clientLanguage, false, false, clientPlatform,
             patchDirCString, 0, 0, loadMethod.rawValue, delayMs, autoLogin,
             Wine.retina)
     }
 
-    private static let regionKey = "GameRegion"
-    static var region: FFXIVRegion {
-        get {
-            let stored: String = Util.getSetting(
-                settingKey: regionKey, defaultValue: FFXIVRegion.global.rawValue)
-            return FFXIVRegion(rawValue: stored) ?? .global
-        }
-        set {
-            guard newValue != region else { return }
-            UserDefaults.standard.set(newValue.rawValue, forKey: regionKey)
-            credentialsCache = nil
-            syncToXL()
-        }
-    }
+    static let region: FFXIVRegion = .korea
 
     private static let platformKey = "Platform"
     static var platform: FFXIVPlatform {
@@ -64,12 +48,9 @@ public enum Settings {
         }
     }
 
-    private static var gamePathKey: String {
-        region == .korea ? "GamePath.Korea" : "GamePath"
-    }
+    private static let gamePathKey = "GamePath.Korea"
     static var defaultGameLoc: URL {
-        Util.applicationSupport.appendingPathComponent(
-            region == .korea ? "ffxiv-korea" : "ffxiv")
+        Util.applicationSupport.appendingPathComponent("ffxiv-korea")
     }
     static var gamePath: URL {
         get {
@@ -88,12 +69,9 @@ public enum Settings {
         syncToXL()
     }
 
-    private static var gameConfigPathKey: String {
-        region == .korea ? "GameConfigPath.Korea" : "GameConfigPath"
-    }
+    private static let gameConfigPathKey = "GameConfigPath.Korea"
     static var defaultGameConfigLoc: URL {
-        Util.applicationSupport.appendingPathComponent(
-            region == .korea ? "ffxivConfig-korea" : "ffxivConfig")
+        Util.applicationSupport.appendingPathComponent("ffxivConfig-korea")
     }
     static var gameConfigPath: URL {
         get {
@@ -108,16 +86,17 @@ public enum Settings {
         }
     }
 
-    private static var usernameKey: String {
-        region == .korea ? "Username.Korea" : "Username"
-    }
+    private static let usernameKey = "Username.Korea"
     private static var credentialsCache: LoginCredentials?
+    static var storedUsername: String? {
+        UserDefaults.standard.string(forKey: usernameKey)
+    }
     static var credentials: LoginCredentials? {
         get {
             if let creds = credentialsCache {
                 return creds
             }
-            if let storedUsername = UserDefaults.standard.string(forKey: usernameKey) {
+            if let storedUsername {
                 return LoginCredentials.storedLogin(
                     username: storedUsername, region: region)
             }
@@ -126,8 +105,10 @@ public enum Settings {
         set {
             if let creds = newValue {
                 UserDefaults.standard.set(creds.username, forKey: usernameKey)
-                creds.saveLogin()
                 credentialsCache = creds
+                DispatchQueue.global(qos: .utility).async {
+                    creds.saveLogin()
+                }
             }
         }
     }
