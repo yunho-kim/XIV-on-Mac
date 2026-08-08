@@ -154,3 +154,116 @@ enum KoreanLauncher {
             detail: "The Korean launcher returned an invalid response.")
     }
 }
+
+struct ConfigBackupResult: Decodable {
+    let characterCount: Int
+    let fileCount: Int
+    let skippedFileCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case characterCount = "CharacterCount"
+        case fileCount = "FileCount"
+        case skippedFileCount = "SkippedFileCount"
+    }
+}
+
+private struct ConfigBackupInteropResponse: Decodable {
+    let success: Bool
+    let errorCode: String?
+    let message: String?
+    let characterCount: Int
+    let fileCount: Int
+    let skippedFileCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case success = "Success"
+        case errorCode = "ErrorCode"
+        case message = "Message"
+        case characterCount = "CharacterCount"
+        case fileCount = "FileCount"
+        case skippedFileCount = "SkippedFileCount"
+    }
+}
+
+struct ConfigBackupError: LocalizedError {
+    let code: String
+    let detail: String
+
+    var errorDescription: String? {
+        switch code {
+        case "NoCharacterSettings":
+            return "내보낼 캐릭터 설정을 찾지 못했습니다. 게임에 접속해 캐릭터 설정을 먼저 생성해 주세요."
+        case "InvalidArchive":
+            return "선택한 파일이 손상되었거나 지원되는 FFXIV 설정 백업이 아닙니다."
+        case "UnsupportedVersion":
+            return "이 설정 백업의 버전은 아직 지원하지 않습니다."
+        case "ArchiveTooLarge":
+            return "설정 백업 파일이 허용된 크기를 초과했습니다."
+        case "FileNotFound":
+            return "선택한 설정 백업 파일을 찾지 못했습니다."
+        case "ReadFailed":
+            return "설정 백업 파일을 읽을 수 없습니다."
+        case "WriteFailed", "InvalidDestination":
+            return "선택한 위치에 설정 백업을 저장할 수 없습니다."
+        case "RestoreFailed":
+            return "설정을 복원하지 못했습니다. 변경된 파일은 가능한 범위에서 원래 상태로 되돌렸습니다."
+        default:
+            return detail
+        }
+    }
+}
+
+enum KoreanConfigBackup {
+    static func exportBackup(
+        configDirectory: URL,
+        destination: URL
+    ) throws -> ConfigBackupResult {
+        try decode(
+            exportConfigBackup(configDirectory.path, destination.path))
+    }
+
+    static func importBackup(
+        configDirectory: URL,
+        source: URL,
+        preserveNewerFiles: Bool
+    ) throws -> ConfigBackupResult {
+        try decode(
+            importConfigBackup(
+                configDirectory.path,
+                source.path,
+                preserveNewerFiles))
+    }
+
+    private static func decode(
+        _ pointer: UnsafePointer<CChar>?
+    ) throws -> ConfigBackupResult {
+        guard let pointer else {
+            throw ConfigBackupError(
+                code: "InvalidBridgeResponse",
+                detail: "설정 백업 모듈에서 올바른 응답을 받지 못했습니다.")
+        }
+        defer { freeNativeString(pointer) }
+
+        let json = String(cString: pointer)
+        guard let data = json.data(using: .utf8),
+            let response = try? JSONDecoder().decode(
+                ConfigBackupInteropResponse.self,
+                from: data)
+        else {
+            throw ConfigBackupError(
+                code: "InvalidBridgeResponse",
+                detail: "설정 백업 모듈에서 올바른 응답을 받지 못했습니다.")
+        }
+
+        guard response.success else {
+            throw ConfigBackupError(
+                code: response.errorCode ?? "InternalError",
+                detail: response.message ?? "설정 백업 작업에 실패했습니다.")
+        }
+
+        return ConfigBackupResult(
+            characterCount: response.characterCount,
+            fileCount: response.fileCount,
+            skippedFileCount: response.skippedFileCount)
+    }
+}

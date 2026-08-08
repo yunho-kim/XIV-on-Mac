@@ -22,6 +22,10 @@ const char *koreanStartGame(bool dalamudOk);
 
 void koreanResetSession(void);
 
+const char *exportConfigBackup(const char *configPath, const char *destinationPath);
+
+const char *importConfigBackup(const char *configPath, const char *sourcePath, bool preserveNewerFiles);
+
 void freeNativeString(const char *value);
 
 unsigned char getDalamudInstallState(void);

@@ -12,6 +12,10 @@ NativeAOT bridge and are never returned to Swift. Dalamud injection is disabled
 for Korean game launches because the current injector does not support the
 Korean client language.
 
+The General settings tab can export and restore character settings using the
+official-launcher-compatible `FFXIVconf.fea` format. Imports are validated and
+staged before any local character files are replaced.
+
 For a reproducible developer setup, clone with submodules and run:
 
 ```bash
