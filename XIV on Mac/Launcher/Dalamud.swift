@@ -10,8 +10,8 @@ import Foundation
 enum Dalamud {
     enum InstallState: UInt8 {
         case ok
-        case failed
         case outOfDate
+        case failed = 255
     }
 
     enum LoadMethod: UInt8 {

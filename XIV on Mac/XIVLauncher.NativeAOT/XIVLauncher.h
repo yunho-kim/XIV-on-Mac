@@ -18,7 +18,7 @@ const char *koreanSubmitOtp(const char *otp);
 
 const char *koreanGetPatches(void);
 
-const char *koreanStartGame(bool dalamudOk);
+const char *koreanStartGame(bool dalamudOk, bool noPlugins);
 
 void koreanResetSession(void);
 

@@ -230,6 +230,16 @@ public enum Settings {
         }
     }
 
+    private static let dalamudSafeModeKey = "DalamudKoreanSafeMode"
+    static var dalamudSafeMode: Bool {
+        get {
+            Util.getSetting(settingKey: dalamudSafeModeKey, defaultValue: true)
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: dalamudSafeModeKey)
+        }
+    }
+
     private static let dalamudEntryPointSettingsKey = "DalamudEntrypoint"
     static var dalamudEntryPoint: Bool {
         get {

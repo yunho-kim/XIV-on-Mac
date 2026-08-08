@@ -107,8 +107,10 @@ enum KoreanLauncher {
         return patch
     }
 
-    static func startGame(dalamudOk: Bool) throws -> ProcessInformation {
-        let response = try decode(koreanStartGame(dalamudOk))
+    static func startGame(
+        dalamudOk: Bool, noPlugins: Bool
+    ) throws -> ProcessInformation {
+        let response = try decode(koreanStartGame(dalamudOk, noPlugins))
         guard let process = response.process else {
             throw invalidResponse()
         }

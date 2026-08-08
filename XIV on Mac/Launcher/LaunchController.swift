@@ -343,16 +343,22 @@ class LaunchController: NSViewController {
                     }
                 }
 
-                // Dalamud's injector currently rejects the Korean client-language
-                // value before it starts the game. Launch the Korean client directly
-                // through the bundled Wine runtime until that injector supports KR.
+                var dalamudOk = false
                 if Settings.dalamudEnabled {
-                    Log.warning(
-                        "[KOREA] Dalamud is not supported for the Korean client; "
-                            + "launching without injection")
+                    postLoginStatus("한국 전용 Dalamud 준비 중")
+                    let state =
+                        Dalamud.InstallState(rawValue: getDalamudInstallState())
+                        ?? .failed
+                    dalamudOk = state == .ok
+                    if !dalamudOk {
+                        Log.warning(
+                            "[KOREA] Dalamud is unavailable; launching without injection")
+                    }
                 }
                 postLoginStatus("게임 시작 중")
-                let process = try KoreanLauncher.startGame(dalamudOk: false)
+                let process = try KoreanLauncher.startGame(
+                    dalamudOk: dalamudOk,
+                    noPlugins: Settings.dalamudSafeMode)
                 DispatchQueue.main.async { [self] in
                     loginSheetWinController?.window?.close()
                     view.window?.close()
